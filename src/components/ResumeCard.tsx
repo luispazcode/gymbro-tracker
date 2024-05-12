@@ -6,7 +6,7 @@ interface ResumeCardProps {
 
 export const ResumeCard = ({ children }: ResumeCardProps) => {
 	return (
-		<div className='w-full flex flex-col gap-8 border border-gray-400 p-6 shadow-md rounded-md text-sm'>
+		<div className='w-full flex flex-col gap-8 border border-gray-300 p-6 shadow-md rounded-md text-sm'>
 			{children}
 		</div>
 	);
@@ -32,7 +32,7 @@ ResumeCard.Body = function ResumeCardBody({
 }: {
 	children: React.ReactNode;
 }) {
-	return <div className='flex items-center justify-between'>{children}</div>;
+	return <div className='w-full'>{children}</div>;
 };
 
 ResumeCard.Link = function ResumeCardLink({
