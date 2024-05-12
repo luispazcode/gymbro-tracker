@@ -1,7 +1,13 @@
+import { ExerciseSection } from "./components/ExerciseSection";
+
 export default function ExercisesPage() {
 	return (
-		<div>
-			<h1>Exercise Page</h1>
-		</div>
+		<>
+			<h2>Mis ejercicios</h2>
+			<p className='text-xs text-gray-400 mt-2'>
+				Aquí se mostrarán todos tus ejercicios registrados
+			</p>
+			<ExerciseSection />
+		</>
 	);
 }
