@@ -49,7 +49,7 @@ export const Sidebar = ({
 		<div
 			className={`${
 				isOpen
-					? "absolute w-full left-0 bg-black border-b border-gray-400"
+					? "absolute w-full left-0 bg-primary-foreground border-b border-gray-400"
 					: "hidden"
 			}`}
 		>
