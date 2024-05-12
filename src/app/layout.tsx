@@ -19,9 +19,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={inter.className}>
 				<Header />
-				<main className='flex h-screen w-full'>
-					<div className='w-full p-6'>{children}</div>
-				</main>
+				<main className='w-full h-full p-6'>{children}</main>
 			</body>
 		</html>
 	);
