@@ -15,15 +15,19 @@ export default function DashboardPage() {
 					subTitle='Your recent workouts'
 				/>
 				<ResumeCard.Body>
-					<div className='flex flex-col gap-2'>
-						<p>Press Day</p>
-						<p>Pull Day</p>
-						<p>Leg Day</p>
-					</div>
-					<div className='flex flex-col gap-2'>
-						<p>06/05/24</p>
-						<p>06/05/24</p>
-						<p>06/05/24</p>
+					<div className='flex flex-col gap-4'>
+						<div className='flex items-center justify-between text-sm'>
+							<p>Bicep Curls</p>
+							<p>11/05/2024</p>
+						</div>
+						<div className='flex items-center justify-between text-sm'>
+							<p>Squats</p>
+							<p>11/05/2024</p>
+						</div>
+						<div className='flex items-center justify-between text-sm'>
+							<p>Bench Press with Dumbbells</p>
+							<p>11/05/2024</p>
+						</div>
 					</div>
 				</ResumeCard.Body>
 				<ResumeCard.Link text='View all workouts' href='/workouts' />
@@ -34,15 +38,19 @@ export default function DashboardPage() {
 					subTitle='Exercises you have completed recently'
 				/>
 				<ResumeCard.Body>
-					<div className='flex flex-col gap-2'>
-						<p>Bicep Curls</p>
-						<p>Shoulder Press</p>
-						<p>Lat Pulldowns</p>
-					</div>
-					<div className='flex flex-col gap-2'>
-						<p>12 reps</p>
-						<p>10 reps</p>
-						<p>15 reps</p>
+					<div className='flex flex-col gap-4'>
+						<div className='flex items-center justify-between text-sm'>
+							<p>Bicep Curls</p>
+							<p>12 reps</p>
+						</div>
+						<div className='flex items-center justify-between text-sm'>
+							<p>Squats</p>
+							<p>12 reps</p>
+						</div>
+						<div className='flex items-center justify-between text-sm'>
+							<p>Bench Press with Dumbbells</p>
+							<p>12 reps</p>
+						</div>
 					</div>
 				</ResumeCard.Body>
 				<ResumeCard.Link text='View all exercises' href='/exercises' />
