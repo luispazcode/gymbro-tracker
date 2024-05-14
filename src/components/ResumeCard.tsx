@@ -21,7 +21,7 @@ ResumeCard.Header = function ResumeCardHeader({
 }) {
 	return (
 		<div className='flex flex-col gap-2'>
-			<h2>{title}</h2>
+			<h3>{title}</h3>
 			<p className='text-xs text-gray-400'>{subTitle}</p>
 		</div>
 	);
