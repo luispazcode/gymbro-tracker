@@ -75,8 +75,9 @@ export const ExerciseForm = () => {
 									<SelectItem value='back'>Back</SelectItem>
 									<SelectItem value='legs'>Legs</SelectItem>
 									<SelectItem value='shoulders'>Shoulders</SelectItem>
-									<SelectItem value='arms'>Arms</SelectItem>
-									<SelectItem value='core'>Core</SelectItem>
+									<SelectItem value='biceps'>Biceps</SelectItem>
+									<SelectItem value='triceps'>Triceps</SelectItem>
+									<SelectItem value='abs'>Abs</SelectItem>
 								</SelectContent>
 							</Select>
 						</FormItem>
