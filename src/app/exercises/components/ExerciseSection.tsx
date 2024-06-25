@@ -18,7 +18,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { exercisesResume } from "@/data";
+import { exercisesResume } from "@/data/resumeExercises";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
