@@ -1,4 +1,6 @@
 "use client";
+import { useUIStore } from "@/store";
+import clsx from "clsx";
 import Link from "next/link";
 import { FaHouse } from "react-icons/fa6";
 import { FiActivity, FiPlus } from "react-icons/fi";
@@ -38,20 +40,17 @@ const menuItems: MenuItem[] = [
 	},
 ];
 
-export const Sidebar = ({
-	isOpen,
-	setOpen,
-}: {
-	isOpen: boolean;
-	setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+export const Sidebar = () => {
+	const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
+	const closeSidebar = useUIStore((state) => state.closeSidebar);
 	return (
 		<div
-			className={`${
-				isOpen
-					? "absolute w-full left-0 bg-primary-foreground border-b border-gray-400"
+			className={clsx(
+				"transition-all ease-linear",
+				isSidebarOpen
+					? "absolute w-full left-0 bg-white dark:bg-gray-500 border-b border-gray-400"
 					: "hidden"
-			}`}
+			)}
 		>
 			<div className='w-full px-6 pb-4 flex flex-col gap-10'>
 				<nav className='flex flex-col  gap-4'>
@@ -60,7 +59,7 @@ export const Sidebar = ({
 							href={item.link}
 							className='flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800'
 							key={item.title}
-							onClick={() => setOpen && setOpen(false)}
+							onClick={() => closeSidebar()}
 						>
 							{item.icon}
 							<p>{item.title}</p>
