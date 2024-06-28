@@ -1,52 +1,52 @@
-import { ExerciseForm, ResumeCard } from "@/components";
+import { CreateExerciseForm, ResumeCard } from "@/components";
+import { Pencil } from "lucide-react";
 import { BiDumbbell } from "react-icons/bi";
-import { FaTrash } from "react-icons/fa";
 
 export default function CreateExercisePage() {
 	return (
 		<section className='flex flex-col gap-6'>
 			<div className='flex flex-col gap-4 border border-gray-300 shadow-md p-6 rounded-md'>
 				<div>
-					<h2>Create New Exercise</h2>
+					<h2>Crear nuevo ejercicio</h2>
 					<p className='text-xs text-gray-400 mt-2'>
-						Add a new exercise to your workout routine
+						Vamos a añadir la información del ejercicio que quieres crear
 					</p>
 				</div>
-				<ExerciseForm />
+				<CreateExerciseForm />
 			</div>
 
 			<ResumeCard>
 				<ResumeCard.Header
-					title='Recent Exercises'
-					subTitle='Your latest added exercises'
+					title='Últimos ejercicios'
+					subTitle='Aquí puedes ver los últimos ejercicios que has creado'
 				/>
 				<ResumeCard.Body>
-					<div className='flex flex-col gap-4'>
+					<div className='flex flex-col gap-2'>
 						<div className='flex items-center justify-between text-sm'>
 							<p className='flex gap-2 items-center'>
 								<BiDumbbell />
-								<span>Bench Press</span>
+								<span>Press banca con mancuernas</span>
 							</p>
-							<button>
-								<FaTrash color='red' />
+							<button className='bg-blue-600 p-2 rounded-sm hover:bg-blue-950'>
+								<Pencil color='white' size={16} />
 							</button>
 						</div>
 						<div className='flex items-center justify-between text-sm'>
 							<p className='flex gap-2 items-center'>
 								<BiDumbbell />
-								<span>Squats</span>
+								<span>Curl de biceps con barra Z</span>
 							</p>
-							<button>
-								<FaTrash color='red' />
+							<button className='bg-blue-600 p-2 rounded-sm hover:bg-blue-950'>
+								<Pencil color='white' size={16} />
 							</button>
 						</div>
 						<div className='flex items-center justify-between text-sm'>
 							<p className='flex gap-2 items-center'>
 								<BiDumbbell />
-								<span>Bench Press with Dumbbells</span>
+								<span>Extensión de triceps con polea alta</span>
 							</p>
-							<button>
-								<FaTrash color='red' />
+							<button className='bg-blue-600 p-2 rounded-sm hover:bg-blue-950'>
+								<Pencil color='white' size={16} />
 							</button>
 						</div>
 					</div>
