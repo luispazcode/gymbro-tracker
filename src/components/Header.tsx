@@ -13,8 +13,8 @@ export const Header = () => {
 		<>
 			<header
 				className={clsx(
-					"px-6 py-4 flex items-center justify-between border-gray-400 transition-all ease-in",
-					isSidebarOpen ? "border-none" : "border-b"
+					"px-6 py-4 flex items-center justify-between border-gray-400 transition-all ease-in relative z-20 bg-white",
+					isSidebarOpen ? "shadow-none" : "shadow-md"
 				)}
 			>
 				<div className='flex items-center gap-2'>
