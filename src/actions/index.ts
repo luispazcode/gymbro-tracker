@@ -1,2 +1,4 @@
-export * from "./exercise/exercise-actions";
-export * from "./muscle/muscle-actions";
+export { createExercise } from "./exercise/create-exercise";
+export { getExercises } from "./exercise/get-exercise";
+
+export { getMuscleGroups } from "./muscle/get-muscle-groups";
