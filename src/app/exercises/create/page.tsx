@@ -1,8 +1,8 @@
+import { getMuscleGroups } from "@/actions";
 import { CreateExerciseForm, ResumeCard } from "@/components";
-import { Pencil } from "lucide-react";
-import { BiDumbbell } from "react-icons/bi";
 
-export default function CreateExercisePage() {
+export default async function CreateExercisePage() {
+	const muscleGroups = await getMuscleGroups();
 	return (
 		<section className='flex flex-col gap-6'>
 			<div className='flex flex-col gap-4 border border-gray-300 shadow-md p-6 rounded-md'>
@@ -12,10 +12,10 @@ export default function CreateExercisePage() {
 						Vamos a añadir la información del ejercicio que quieres crear
 					</p>
 				</div>
-				<CreateExerciseForm />
+				<CreateExerciseForm listMuscleGroups={muscleGroups} />
 			</div>
 
-			<ResumeCard>
+			{/* <ResumeCard>
 				<ResumeCard.Header
 					title='Últimos ejercicios'
 					subTitle='Aquí puedes ver los últimos ejercicios que has creado'
@@ -52,7 +52,7 @@ export default function CreateExercisePage() {
 					</div>
 				</ResumeCard.Body>
 				<ResumeCard.Link text='View all exercises' href='/exercises' />
-			</ResumeCard>
+			</ResumeCard> */}
 		</section>
 	);
 }
