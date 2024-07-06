@@ -18,9 +18,16 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { muscleGroups } from "@/data/muscle-groups";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { MuscleGroup } from "@prisma/client";
+import { createExercise } from "@/actions";
+import { useRouter } from "next/navigation";
+import { useToast } from "../ui/use-toast";
+
+interface Props {
+	listMuscleGroups: MuscleGroup[];
+}
 
 const CreateExerciseSchema = z.object({
 	exerciseName: z
@@ -30,13 +37,16 @@ const CreateExerciseSchema = z.object({
 		.min(4, {
 			message: "El nombre de tu ejercicio debe tener por lo menos 4 caracteres",
 		}),
-	tagExercise: z.string(),
 	description: z.string().optional(),
 	muscleGroup: z.string().min(1, { message: "Selecciona un grupo muscular" }),
 });
 
-export const CreateExerciseForm = () => {
-	const form = useForm<z.infer<typeof CreateExerciseSchema>>({
+export type CreateExerciseFormData = z.infer<typeof CreateExerciseSchema>;
+
+export const CreateExerciseForm = ({ listMuscleGroups }: Props) => {
+	const router = useRouter();
+	const { toast } = useToast();
+	const form = useForm<CreateExerciseFormData>({
 		resolver: zodResolver(CreateExerciseSchema),
 		defaultValues: {
 			exerciseName: "",
@@ -44,9 +54,23 @@ export const CreateExerciseForm = () => {
 			muscleGroup: "",
 		},
 	});
-	const onSubmit = (data: z.infer<typeof CreateExerciseSchema>) => {
-		console.log({ data });
-		form.reset();
+	const onSubmit = async (data: CreateExerciseFormData) => {
+		try {
+			await createExercise(data);
+			toast({
+				title: "Éxito!!!",
+				description: `El ejercicio ${data.exerciseName} ha sido creado satisfactoriamente.`,
+				variant: "default",
+			});
+			router.push("/exercises");
+		} catch (error) {
+			toast({
+				title: "Error",
+				description: `Ups ocurrió un problema, ${error}`,
+				variant: "destructive",
+			});
+			console.error(`Ups ocurrió un problema, ${error}`);
+		}
 	};
 	return (
 		<Form {...form}>
@@ -93,8 +117,8 @@ export const CreateExerciseForm = () => {
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
-									{muscleGroups.map((group) => (
-										<SelectItem key={group.slug} value={group.slug}>
+									{listMuscleGroups.map((group) => (
+										<SelectItem key={group.id} value={group.tag}>
 											{group.name}
 										</SelectItem>
 									))}
@@ -106,19 +130,14 @@ export const CreateExerciseForm = () => {
 				/>
 				<Button
 					type='submit'
-					onClick={() => {
-						if (form.getValues("exerciseName").length > 3) {
-							form.setValue(
-								"tagExercise",
-								form
-									.getValues("exerciseName")
-									.toLowerCase()
-									.replace(/\s+/g, "-")
-							);
-						}
-					}}
+					className='w-full disabled:opacity-35'
+					disabled={form.formState.isSubmitting}
 				>
-					Create Exercise
+					{form.formState.isSubmitting ? (
+						<span>Creando ...</span>
+					) : (
+						<span>Crear ejercicio</span>
+					)}
 				</Button>
 			</form>
 		</Form>
