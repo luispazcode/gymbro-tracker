@@ -19,6 +19,9 @@ import { Calendar } from "../ui/calendar";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "lucide-react";
 import { Exercise, useWorkoutStore } from "@/store";
+import { createWorkout } from "@/actions";
+import { useRouter } from "next/navigation";
+import { useToast } from "../ui/use-toast";
 
 interface Props {
 	exerciseList: Exercise[];
@@ -37,8 +40,12 @@ const AddWorkoutFormSchema = z.object({
 		.min(1, { message: "Agrega ejercicios a tu entrenamiento" }),
 });
 
+export type CreateWorkoutFormData = z.infer<typeof AddWorkoutFormSchema>;
+
 export const SummaryWorkoutForm = ({ exerciseList }: Props) => {
-	const form = useForm<z.infer<typeof AddWorkoutFormSchema>>({
+	const router = useRouter();
+	const { toast } = useToast();
+	const form = useForm<CreateWorkoutFormData>({
 		resolver: zodResolver(AddWorkoutFormSchema),
 		defaultValues: {
 			nameWorkout: "",
@@ -46,10 +53,25 @@ export const SummaryWorkoutForm = ({ exerciseList }: Props) => {
 		},
 	});
 	const resetExercises = useWorkoutStore((state) => state.resetExercises);
-	const onSubmit = (data: z.infer<typeof AddWorkoutFormSchema>) => {
-		console.log({ data });
-		form.reset();
-		resetExercises();
+	const onSubmit = async (data: CreateWorkoutFormData) => {
+		try {
+			await createWorkout(data);
+			form.reset();
+			resetExercises();
+			toast({
+				title: "Éxito!!!",
+				description: `El entrenamiento ${data.nameWorkout} ha sido creado satisfactoriamente.`,
+				variant: "default",
+			});
+			router.push("/workouts");
+		} catch (error) {
+			toast({
+				title: "Error",
+				description: `Ups ocurrió un problema, ${error}`,
+				variant: "destructive",
+			});
+			console.error(`Ups ocurrió un problema, ${error}`);
+		}
 	};
 	return (
 		<Form {...form}>
