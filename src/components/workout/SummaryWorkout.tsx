@@ -7,7 +7,7 @@ import { SummaryWorkoutForm } from "./SummaryWorkoutForm";
 export const SummaryWorkout = () => {
 	const exercises = useWorkoutStore((state) => state.exercises);
 	const removeExercise = useWorkoutStore((state) => state.removeExercise);
-	// console.log(exercises);
+
 	return (
 		<section className='flex flex-col gap-4 border border-gray-300 shadow-md p-6 rounded-md'>
 			<div>
