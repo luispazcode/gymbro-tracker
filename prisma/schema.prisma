@@ -14,10 +14,10 @@ datasource db {
 }
 
 model MuscleGroup {
-  id       Int        @id @default(autoincrement())
-  name     String     @unique
-  tag      String     @unique
-  Exercise Exercise[]
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  tag       String     @unique
+  exercises Exercise[]
 }
 
 model Exercise {
@@ -28,4 +28,25 @@ model Exercise {
 
   muscleGroup    MuscleGroup @relation(fields: [muscleGroupTag], references: [tag])
   muscleGroupTag String
+  sets           Set[]
+}
+
+model Workout {
+  id   String   @id @default(uuid())
+  name String
+  tag  String
+  date DateTime
+  sets Set[]
+}
+
+model Set {
+  id     String @id @default(uuid())
+  weight Float
+  reps   Int
+
+  workout   Workout @relation(fields: [workoutId], references: [id])
+  workoutId String
+
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId String
 }
