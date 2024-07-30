@@ -1,6 +1,8 @@
+import { getExercises } from "@/actions";
 import { DialogAddExercise, SummaryWorkout } from "@/components";
 
-export default function CreateWorkoutPage() {
+export default async function CreateWorkoutPage() {
+	const allExercisesCreated = await getExercises();
 	return (
 		<main className='flex flex-col gap-6'>
 			<section className='flex flex-col gap-6'>
@@ -13,7 +15,7 @@ export default function CreateWorkoutPage() {
 						</p>
 					</div>
 					<div className='flex flex-col justify-center items-center'>
-						<DialogAddExercise />
+						<DialogAddExercise listExercises={allExercisesCreated} />
 					</div>
 				</div>
 			</section>
