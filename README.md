@@ -19,3 +19,13 @@ pnpm dev
 # or
 bun dev
 ```
+
+## Screenshots
+
+| Sidebar Menu                                                         | Create exercise                                                      | My exercises                                                         |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| <img src="public/assets/images/readme/Screenshot_2.png" width="300"> | <img src="public/assets/images/readme/Screenshot_3.png" width="300"> | <img src="public/assets/images/readme/Screenshot_4.png" width="290"> |
+
+| Add exercise to workout                                              | Create workout                                                       | My workouts                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| <img src="public/assets/images/readme/Screenshot_5.png" width="300"> | <img src="public/assets/images/readme/Screenshot_6.png" width="300"> | <img src="public/assets/images/readme/Screenshot_7.png" width="300"> |
