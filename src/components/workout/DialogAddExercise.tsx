@@ -10,8 +10,13 @@ import {
 	DialogTrigger,
 } from "../ui/dialog";
 import { AddExerciseForm } from "./AddExerciseForm";
+import { Exercise } from "@prisma/client";
 
-export const DialogAddExercise = () => {
+interface Props {
+	listExercises: Exercise[];
+}
+
+export const DialogAddExercise = ({ listExercises }: Props) => {
 	const isDialogOpen = useUIStore((state) => state.isDialogOpen);
 	const openDialog = useUIStore((state) => state.openDialog);
 	const closeDialog = useUIStore((state) => state.closeDialog);
@@ -30,7 +35,7 @@ export const DialogAddExercise = () => {
 					</DialogDescription>
 				</DialogHeader>
 				<div className='w-full mt-4'>
-					<AddExerciseForm />
+					<AddExerciseForm exercisesCreated={listExercises} />
 				</div>
 			</DialogContent>
 		</Dialog>
