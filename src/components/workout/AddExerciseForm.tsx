@@ -11,7 +11,6 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-import { createdExercises } from "@/data/createdExercises";
 import { Check, ChevronsUpDown, Minus, Plus } from "lucide-react";
 import {
 	Command,
@@ -25,6 +24,7 @@ import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUIStore, useWorkoutStore } from "@/store";
+import { Exercise } from "@prisma/client";
 
 const setSchema = z.object({
 	reps: z.number().min(1, { message: "Debes agregar tus repeticiones" }),
@@ -46,7 +46,11 @@ export const AddExerciseFormSchema = z.object({
 	sets: setsSchema,
 });
 
-export const AddExerciseForm = () => {
+interface Props {
+	exercisesCreated: Exercise[];
+}
+
+export const AddExerciseForm = ({ exercisesCreated }: Props) => {
 	const closeDialog = useUIStore((state) => state.closeDialog);
 	const addExercise = useWorkoutStore((state) => state.addExercise);
 	const form = useForm<z.infer<typeof AddExerciseFormSchema>>({
@@ -84,8 +88,8 @@ export const AddExerciseForm = () => {
 											)}
 										>
 											{field.value
-												? createdExercises.find(
-														(exercise) => exercise.value === field.value
+												? exercisesCreated.find(
+														(exercise) => exercise.id === field.value
 												  )?.name
 												: "Selecciona un ejercicio"}
 											<ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
@@ -98,19 +102,19 @@ export const AddExerciseForm = () => {
 										<CommandEmpty>No se encontró tu ejercicio.</CommandEmpty>
 										<CommandGroup>
 											<CommandList>
-												{createdExercises.map((exercise) => (
+												{exercisesCreated.map((exercise) => (
 													<CommandItem
-														key={exercise.value}
+														key={exercise.id}
 														value={exercise.name}
 														onSelect={() => {
-															form.setValue("exerciseValue", exercise.value);
+															form.setValue("exerciseValue", exercise.id);
 															form.setValue("exerciseName", exercise.name);
 														}}
 													>
 														<Check
 															className={cn(
 																"mr-2 h-4 w-4",
-																exercise.value === field.value
+																exercise.id === field.value
 																	? "opacity-100"
 																	: "opacity-0"
 															)}
