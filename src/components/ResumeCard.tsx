@@ -43,7 +43,7 @@ ResumeCard.Link = function ResumeCardLink({
 	href: string;
 }) {
 	return (
-		<Link href={href} className='text-xs underline'>
+		<Link href={href} className='text-xs underline self-start'>
 			{text}
 		</Link>
 	);
