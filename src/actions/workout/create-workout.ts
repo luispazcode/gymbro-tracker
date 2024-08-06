@@ -17,7 +17,10 @@ export const createWorkout = async (formData: CreateWorkoutFormData) => {
 			data: {
 				name: formData.nameWorkout,
 				date: formData.dateWorkout,
-				tag: formData.nameWorkout.toLowerCase().replace(/\s/g, "-"),
+				tag:
+					formData.nameWorkout.toLowerCase().replace(/\s/g, "-") +
+					"-workout-" +
+					formData.dateWorkout.toISOString(),
 				sets: {
 					create: setsForRecording.flat(),
 				},
