@@ -34,7 +34,7 @@ model Exercise {
 model Workout {
   id   String   @id @default(uuid())
   name String
-  tag  String
+  tag  String   @unique
   date DateTime
   sets Set[]
 }
