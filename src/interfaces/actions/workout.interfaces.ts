@@ -21,3 +21,12 @@ export interface WorkoutToDisplay {
 	tag: string;
 	sets: GroupedData;
 }
+
+// Show Workout Detail Page
+export interface WorkoutDetail {
+	id: string;
+	date: Date;
+	name: string;
+	tag: string;
+	sets: GroupedData;
+}
