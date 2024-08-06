@@ -30,7 +30,7 @@ export default function RootLayout({
 				)}
 			>
 				<Header />
-				<main className='w-full h-full p-6'>{children}</main>
+				<main className='w-full h-full px-4 py-6'>{children}</main>
 				<Toaster />
 			</body>
 		</html>
