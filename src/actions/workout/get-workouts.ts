@@ -3,9 +3,22 @@
 import { DataItem, GroupedData } from "@/interfaces";
 import prisma from "@/lib/prisma";
 
-export const getWorkouts = async () => {
+interface GetWorkouts {
+	skip?: number;
+	take?: number;
+	orderByDate?: "asc" | "desc";
+}
+
+export const getWorkouts = async ({ skip, take, orderByDate }: GetWorkouts) => {
 	try {
 		const allWorkouts = await prisma.workout.findMany({
+			skip: skip,
+			take: take,
+			orderBy: [
+				{
+					date: orderByDate,
+				},
+			],
 			include: {
 				sets: {
 					include: {
