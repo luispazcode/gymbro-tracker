@@ -1,7 +1,6 @@
 import { ResumeCard } from "@/components";
 import { Button } from "@/components/ui/button";
 import { WorkoutToDisplay } from "@/interfaces";
-import { Encrypt } from "@/utils";
 import { DumbbellIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -40,7 +39,7 @@ export const WorkoutsSection = ({ workoutsToDisplay }: Props) => {
 								</div>
 							))}
 						</div>
-						<Link href={`/workouts/${workout.tag}?id=${Encrypt(workout.id)}`}>
+						<Link href={`/workouts/${workout.tag}`}>
 							<Button className='w-full mt-6' type='button'>
 								Ver entrenamiento
 							</Button>
