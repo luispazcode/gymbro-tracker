@@ -2,7 +2,7 @@ import { getExercisesSummary, getWorkouts } from "@/actions";
 import { ResumeCard } from "@/components";
 
 export default async function DashboardPage() {
-	const recentWorkouts = await getWorkouts({ take: 3, orderByDate: "desc" });
+	const recentWorkouts = await getWorkouts({ take: 3 });
 	const exercisesSummary = await getExercisesSummary({
 		take: 3,
 		orderByTotalSets: "desc",
