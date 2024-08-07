@@ -9,14 +9,14 @@ interface GetExercisesSummary {
 }
 
 export const getExercisesSummary = async ({
-	take,
-	skip,
-	orderByTotalSets,
+	take = 10,
+	skip = 0,
+	orderByTotalSets = "desc",
 }: GetExercisesSummary) => {
 	try {
 		const exercisesSummary = await prisma.exercise.findMany({
-			skip: skip,
 			take: take,
+			skip: skip,
 			orderBy: {
 				sets: {
 					_count: orderByTotalSets,
