@@ -29,9 +29,7 @@ export default function RootLayout({
 					fontSans.variable
 				)}
 			>
-				<Header />
-				<main className='w-full h-full px-4 py-6'>{children}</main>
-				<Toaster />
+				{children}
 			</body>
 		</html>
 	);
