@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Link from "next/link";
 
 interface ResumeCardProps {
@@ -15,14 +16,16 @@ export const ResumeCard = ({ children }: ResumeCardProps) => {
 ResumeCard.Header = function ResumeCardHeader({
 	title,
 	subTitle,
+	className,
 }: {
 	title: string;
-	subTitle: string;
+	subTitle?: string;
+	className?: string;
 }) {
 	return (
-		<div className='flex flex-col gap-2'>
+		<div className={clsx("flex flex-col gap-2", className && className)}>
 			<h3>{title}</h3>
-			<p className='text-xs text-gray-400'>{subTitle}</p>
+			{subTitle && <p className='text-xs text-gray-400'>{subTitle}</p>}
 		</div>
 	);
 };
