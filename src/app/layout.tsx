@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components";
 import { cn } from "@/lib/utils";
+import { AuthProvider } from "@/providers";
 import { Toaster } from "@/components/ui/toaster";
 
 const fontSans = FontSans({
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 		"Aplicación donde puedes registrar cada uno de tus entrenamientos y ejercicios realizados en el gimnasio.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
@@ -29,7 +29,8 @@ export default function RootLayout({
 					fontSans.variable
 				)}
 			>
-				{children}
+				<AuthProvider>{children}</AuthProvider>
+				<Toaster />
 			</body>
 		</html>
 	);
