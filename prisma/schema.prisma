@@ -26,6 +26,9 @@ model User {
   password  String
   role      Role     @default(USER)
   createdAt DateTime @default(now())
+
+  exercises Exercise[]
+  workouts  Workout[]
 }
 
 model MuscleGroup {
@@ -44,6 +47,9 @@ model Exercise {
   muscleGroup    MuscleGroup @relation(fields: [muscleGroupTag], references: [tag])
   muscleGroupTag String
   sets           Set[]
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model Workout {
@@ -52,6 +58,9 @@ model Workout {
   tag  String   @unique
   date DateTime
   sets Set[]
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model Set {
