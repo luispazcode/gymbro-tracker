@@ -1,5 +1,6 @@
 "use client";
 
+import { registerUser } from "@/actions";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -10,7 +11,10 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -35,7 +39,7 @@ const RegisterFormSchema = z
 		path: ["confirmPassword"],
 	});
 
-type RegisterFormValues = z.infer<typeof RegisterFormSchema>;
+export type RegisterFormValues = z.infer<typeof RegisterFormSchema>;
 
 export const RegisterForm = () => {
 	const form = useForm<RegisterFormValues>({
@@ -49,8 +53,22 @@ export const RegisterForm = () => {
 		},
 	});
 
-	const onSubmit = (values: RegisterFormValues) => {
-		console.log({ values });
+	const { toast } = useToast();
+	const router = useRouter();
+
+	const onSubmit = async (values: RegisterFormValues) => {
+		const response = await registerUser(values);
+		if (!response.ok) {
+			toast({
+				title: "Ups, algo salió mal",
+				description: response.message,
+			});
+			return;
+		}
+		toast({
+			title: "Usuario registrado correctamente",
+		});
+		router.replace("/auth/login");
 	};
 	return (
 		<Form {...form}>
@@ -60,7 +78,7 @@ export const RegisterForm = () => {
 						control={form.control}
 						name='firstName'
 						render={({ field }) => (
-							<FormItem>
+							<FormItem className='w-1/2'>
 								<FormLabel>Nombre:</FormLabel>
 								<FormControl>
 									<Input placeholder='Jhon' {...field} type='text' />
@@ -73,7 +91,7 @@ export const RegisterForm = () => {
 						control={form.control}
 						name='lastName'
 						render={({ field }) => (
-							<FormItem>
+							<FormItem className='w-1/2'>
 								<FormLabel>Apellido:</FormLabel>
 								<FormControl>
 									<Input placeholder='Doe' {...field} type='text' />
@@ -126,8 +144,19 @@ export const RegisterForm = () => {
 						</FormItem>
 					)}
 				/>
-				<Button type='submit' className='w-full'>
-					Registrarse
+				<Button
+					type='submit'
+					className='w-full'
+					disabled={form.formState.isSubmitting}
+				>
+					{form.formState.isSubmitting ? (
+						<>
+							<Loader2 className='mr-2 h-4 w-4 animate-spin' />
+							Registrando...
+						</>
+					) : (
+						<span>Registrarse</span>
+					)}
 				</Button>
 			</form>
 		</Form>
