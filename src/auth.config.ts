@@ -3,7 +3,16 @@ import Credentials from "next-auth/providers/credentials";
 import bcryptjs from "bcryptjs";
 import { z } from "zod";
 import prisma from "./lib/prisma";
-import { LoginFormSchema } from "./app/auth/login/ui/LoginForm";
+
+const protectedRoutes = [
+	"/dashboard",
+	"/exercises",
+	"/exercises/create",
+	"/workouts",
+	"/workouts/create",
+];
+
+const authenticatedRoutes = ["/auth/login", "/auth/register"];
 
 export const authConfig: NextAuthConfig = {
 	pages: {
@@ -11,6 +20,27 @@ export const authConfig: NextAuthConfig = {
 		newUser: "auth/register",
 	},
 	callbacks: {
+		authorized({ auth, request: { nextUrl } }) {
+			const isLogged = !!auth?.user;
+			const authRoutes = authenticatedRoutes.some((item) =>
+				nextUrl.pathname.includes(item)
+			);
+			const routes = protectedRoutes.some((item) =>
+				nextUrl.pathname.includes(item)
+			);
+
+			if (isLogged && authRoutes) {
+				return Response.redirect(new URL("/dashboard", nextUrl));
+			}
+
+			if (!isLogged && routes) {
+				return Response.redirect(
+					new URL(`/auth/login?origin=${nextUrl.pathname}`, nextUrl)
+				);
+			}
+
+			return true;
+		},
 		jwt({ token, user }) {
 			if (user) {
 				token.data = user;
