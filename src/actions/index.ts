@@ -11,3 +11,4 @@ export { getWorkoutBySlug } from "./workout/get-workout-by-slug";
 export { authenticate } from "./auth/authenticate";
 export { logout } from "./auth/logout";
 export { registerUser } from "./auth/register";
+export { login } from "./auth/login";
