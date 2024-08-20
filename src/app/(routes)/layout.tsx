@@ -1,5 +1,4 @@
 import { Header } from "@/components";
-import { Toaster } from "@/components/ui/toaster";
 
 export default function RoutesLayout({
 	children,
@@ -10,7 +9,6 @@ export default function RoutesLayout({
 		<>
 			<Header />
 			<main className='w-full h-full p-6'>{children}</main>
-			<Toaster />
 		</>
 	);
 }
