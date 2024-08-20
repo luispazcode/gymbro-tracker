@@ -1,10 +1,13 @@
 "use client";
 import { useUIStore } from "@/store";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FaHouse } from "react-icons/fa6";
 import { FiActivity, FiPlus } from "react-icons/fi";
 import { GiGymBag } from "react-icons/gi";
+import { Button } from "./ui/button";
+import { logout } from "@/actions";
 
 interface MenuItem {
 	title: string;
@@ -43,6 +46,7 @@ const menuItems: MenuItem[] = [
 export const Sidebar = () => {
 	const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
 	const closeSidebar = useUIStore((state) => state.closeSidebar);
+	const { data: session } = useSession();
 	return (
 		<>
 			<div
@@ -66,6 +70,11 @@ export const Sidebar = () => {
 								<p>{item.title}</p>
 							</Link>
 						))}
+						{session?.user && (
+							<Button type='button' onClick={() => logout()}>
+								Cerrar sesión
+							</Button>
+						)}
 					</nav>
 				</div>
 			</div>
