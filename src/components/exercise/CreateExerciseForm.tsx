@@ -24,6 +24,7 @@ import { MuscleGroup } from "@prisma/client";
 import { createExercise } from "@/actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "../ui/use-toast";
+import { useSession } from "next-auth/react";
 
 interface Props {
 	listMuscleGroups: MuscleGroup[];
@@ -54,6 +55,7 @@ export const CreateExerciseForm = ({ listMuscleGroups }: Props) => {
 			muscleGroup: "",
 		},
 	});
+
 	const onSubmit = async (data: CreateExerciseFormData) => {
 		try {
 			await createExercise(data);
@@ -62,6 +64,7 @@ export const CreateExerciseForm = ({ listMuscleGroups }: Props) => {
 				description: `El ejercicio ${data.exerciseName} ha sido creado satisfactoriamente.`,
 				variant: "default",
 			});
+			form.reset();
 			router.push("/exercises");
 		} catch (error) {
 			toast({
