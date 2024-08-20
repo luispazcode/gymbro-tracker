@@ -60,7 +60,7 @@ export const AddExerciseForm = ({ exercisesCreated }: Props) => {
 		},
 	});
 	const onSubmit = (data: z.infer<typeof AddExerciseFormSchema>) => {
-		console.log({ data });
+		// console.log({ data });
 		addExercise(data);
 		closeDialog();
 	};
