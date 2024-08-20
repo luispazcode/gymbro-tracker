@@ -1,10 +1,15 @@
 "use server";
 
+import { auth } from "@/auth.config";
 import { CreateWorkoutFormData } from "@/components/workout/SummaryWorkoutForm";
 import prisma from "@/lib/prisma";
 
 export const createWorkout = async (formData: CreateWorkoutFormData) => {
 	try {
+		const session = await auth();
+		if (!session) {
+			throw new Error("You must be authenticated to create a workout");
+		}
 		const { listExercises } = formData;
 		const setsForRecording = listExercises.map((exercise) => {
 			return exercise.sets.map((set) => ({
@@ -15,6 +20,7 @@ export const createWorkout = async (formData: CreateWorkoutFormData) => {
 		});
 		const newWorkout = await prisma.workout.create({
 			data: {
+				userId: session.user.id,
 				name: formData.nameWorkout,
 				date: formData.dateWorkout,
 				tag:
