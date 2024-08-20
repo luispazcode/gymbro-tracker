@@ -1,14 +1,25 @@
 import { getExercisesSummary, getWorkouts } from "@/actions";
+import { auth } from "@/auth.config";
 import { ResumeCard } from "@/components";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
+	const session = await auth();
+	if (!session?.user) {
+		redirect("/auth/login");
+	}
+
 	const recentWorkouts = await getWorkouts({ take: 3 });
 	const exercisesSummary = await getExercisesSummary({
 		take: 3,
 		orderByTotalSets: "desc",
+		userId: session.user.id,
 	});
 	return (
 		<div className='grid grid-cols-1 gap-6'>
+			<h1>
+				Hola de nuevo, {session.user.firstName} {session.user.lastName}
+			</h1>
 			<ResumeCard>
 				<ResumeCard.Header
 					title='Últimos entrenamientos'

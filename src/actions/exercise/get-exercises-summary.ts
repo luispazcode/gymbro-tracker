@@ -6,12 +6,14 @@ interface GetExercisesSummary {
 	take?: number;
 	skip?: number;
 	orderByTotalSets?: "asc" | "desc";
+	userId: string;
 }
 
 export const getExercisesSummary = async ({
 	take = 10,
 	skip = 0,
 	orderByTotalSets = "desc",
+	userId,
 }: GetExercisesSummary) => {
 	try {
 		const exercisesSummary = await prisma.exercise.findMany({
@@ -33,6 +35,9 @@ export const getExercisesSummary = async ({
 						workoutId: true,
 					},
 				},
+			},
+			where: {
+				userId: userId,
 			},
 		});
 		return exercisesSummary;
