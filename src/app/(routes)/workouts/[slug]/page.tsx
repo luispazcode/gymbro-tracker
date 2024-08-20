@@ -1,4 +1,5 @@
 import { getWorkoutBySlug } from "@/actions";
+import { auth } from "@/auth.config";
 import {
 	Table,
 	TableBody,
@@ -17,8 +18,11 @@ interface Props {
 }
 
 export default async function WorkoutDetailPage({ params }: Props) {
+	const session = await auth();
+	if (!session) return redirect("/login");
 	const workoutDetail = (await getWorkoutBySlug(
-		decodeURIComponent(params.slug)
+		decodeURIComponent(params.slug),
+		session.user.id
 	)) as WorkoutDetail;
 
 	if (!workoutDetail) redirect("/workouts");
@@ -67,5 +71,3 @@ export default async function WorkoutDetailPage({ params }: Props) {
 		</section>
 	);
 }
-
-// TODO: Show full workout detail

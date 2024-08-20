@@ -3,11 +3,12 @@
 import { DataItem, GroupedData } from "@/interfaces";
 import prisma from "@/lib/prisma";
 
-export const getWorkoutBySlug = async (slug: string) => {
+export const getWorkoutBySlug = async (slug: string, userId: string) => {
 	try {
 		const workout = await prisma.workout.findFirst({
 			where: {
 				tag: slug,
+				userId: userId,
 			},
 			include: {
 				sets: {
