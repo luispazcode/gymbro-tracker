@@ -7,15 +7,20 @@ interface GetWorkouts {
 	skip?: number;
 	take?: number;
 	orderByDate?: "asc" | "desc";
+	userId: string;
 }
 
 export const getWorkouts = async ({
 	skip = 0,
 	take = 10,
 	orderByDate = "desc",
+	userId,
 }: GetWorkouts) => {
 	try {
 		const allWorkouts = await prisma.workout.findMany({
+			where: {
+				userId: userId,
+			},
 			take: take,
 			skip: skip,
 			orderBy: [

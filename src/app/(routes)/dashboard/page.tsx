@@ -9,7 +9,10 @@ export default async function DashboardPage() {
 		redirect("/auth/login");
 	}
 
-	const recentWorkouts = await getWorkouts({ take: 3 });
+	const recentWorkouts = await getWorkouts({
+		take: 3,
+		userId: session.user.id,
+	});
 	const exercisesSummary = await getExercisesSummary({
 		take: 3,
 		orderByTotalSets: "desc",

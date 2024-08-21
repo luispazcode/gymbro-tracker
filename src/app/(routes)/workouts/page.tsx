@@ -1,9 +1,17 @@
 import { getWorkouts } from "@/actions";
 import { WorkoutsSection } from "./components/WorkoutsSection";
 import { WorkoutToDisplay } from "@/interfaces";
+import { auth } from "@/auth.config";
+import { redirect } from "next/navigation";
 
 export default async function WorkoutsPage() {
-	const createdWorkouts: WorkoutToDisplay[] = await getWorkouts({});
+	const session = await auth();
+	if (!session?.user) {
+		redirect("/auth/login");
+	}
+	const createdWorkouts: WorkoutToDisplay[] = await getWorkouts({
+		userId: session.user.id,
+	});
 
 	return (
 		<section>
