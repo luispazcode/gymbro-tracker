@@ -4,6 +4,7 @@ import { TiThMenu } from "react-icons/ti";
 import { Sidebar } from "./Sidebar";
 import { useUIStore } from "@/store";
 import clsx from "clsx";
+import Link from "next/link";
 
 export const Header = () => {
 	const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
@@ -17,10 +18,10 @@ export const Header = () => {
 					isSidebarOpen ? "shadow-none" : "shadow-md"
 				)}
 			>
-				<div className='flex items-center gap-2'>
+				<Link href='/dashboard' className='flex items-center gap-2'>
 					<LiaDumbbellSolid className='w-6 h-6' />
 					<h1 className='text-2xl font-bold'>Gymbro Tracker</h1>
-				</div>
+				</Link>
 				<button
 					onClick={() => {
 						isSidebarOpen ? closeSidebar() : openSidebar();
