@@ -25,9 +25,9 @@ export const DialogAddExercise = ({ listExercises }: Props) => {
 	return (
 		<Dialog open={isDialogOpen} onOpenChange={toggleDialog}>
 			<DialogTrigger asChild>
-				<Button variant='outline'>Agregar ejercicio</Button>
+				<Button variant='outline'>Registrar ejercicio</Button>
 			</DialogTrigger>
-			<DialogContent className='sm:max-w-md'>
+			<DialogContent className='sm:max-w-md overflow-y-scroll max-h-screen'>
 				<DialogHeader>
 					<DialogTitle>Agrega tus ejercicios</DialogTitle>
 					<DialogDescription>

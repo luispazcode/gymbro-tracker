@@ -42,8 +42,9 @@ export const SummaryWorkout = () => {
 							</div>
 						))
 					) : (
-						<p className='text-sm text-center text-gray-600'>
-							!Añade ejercicios a tu entrenamiento!
+						<p className='text-xs text-center text-gray-500'>
+							Aquí se mostrarán los ejercicios que vas registrando en tu
+							entrenamiento.
 						</p>
 					)}
 				</div>
