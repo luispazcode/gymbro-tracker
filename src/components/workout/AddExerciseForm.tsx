@@ -27,8 +27,8 @@ import { useUIStore, useWorkoutStore } from "@/store";
 import { Exercise } from "@prisma/client";
 
 const setSchema = z.object({
-	reps: z.number().min(1, { message: "Debes agregar tus repeticiones" }),
-	weight: z
+	reps: z.coerce.number().min(1, { message: "Debes agregar tus repeticiones" }),
+	weight: z.coerce
 		.number()
 		.min(1, { message: "Debes agregar el peso de tus repeticiones" }),
 });
@@ -60,14 +60,13 @@ export const AddExerciseForm = ({ exercisesCreated }: Props) => {
 		},
 	});
 	const onSubmit = (data: z.infer<typeof AddExerciseFormSchema>) => {
-		// console.log({ data });
 		addExercise(data);
 		closeDialog();
 	};
 	return (
 		<Form {...form}>
 			<form
-				className='flex flex-col gap-6'
+				className='flex flex-col gap-4'
 				onSubmit={form.handleSubmit(onSubmit)}
 			>
 				<FormField
@@ -142,6 +141,8 @@ export const AddExerciseForm = ({ exercisesCreated }: Props) => {
 									<Button
 										size='icon'
 										type='button'
+										className='disabled:opacity-50'
+										disabled={field.value.length <= 1}
 										onClick={() => {
 											if (field.value.length > 1) {
 												form.setValue(
@@ -159,11 +160,15 @@ export const AddExerciseForm = ({ exercisesCreated }: Props) => {
 									<Button
 										size='icon'
 										type='button'
+										className='disabled:opacity-50'
+										disabled={field.value.length >= 5}
 										onClick={() => {
-											form.setValue("sets", [
-												...field.value,
-												{ reps: 0, weight: 0 },
-											]);
+											if (field.value.length < 5) {
+												form.setValue("sets", [
+													...field.value,
+													{ reps: 0, weight: 0 },
+												]);
+											}
 										}}
 									>
 										<Plus />
@@ -174,49 +179,42 @@ export const AddExerciseForm = ({ exercisesCreated }: Props) => {
 					)}
 				/>
 				<div>
-					{form.watch("sets").map((_, index) => (
-						<div key={index} className='flex flex-col my-4'>
-							<p className='font-semibold'>Serie {index + 1}</p>
-							<div className='flex gap-4 justify-between'>
-								<FormField
-									control={form.control}
-									name={`sets.${index}.reps`}
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Repeticiones:</FormLabel>
-											<FormControl>
-												<Input
-													{...field}
-													type='number'
-													placeholder='10'
-													onChange={(e) => field.onChange(+e.target.value)}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name={`sets.${index}.weight`}
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Peso:</FormLabel>
-											<FormControl>
-												<Input
-													{...field}
-													type='number'
-													placeholder='10'
-													onChange={(e) => field.onChange(+e.target.value)}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+					{!!form.watch("sets") &&
+						form.watch("sets").map((_, index) => (
+							<div key={index} className='flex flex-col my-4'>
+								<p className='font-semibold text-center my-2 uppercase'>
+									Serie {index + 1}
+								</p>
+								<div className='flex gap-4 justify-between'>
+									<FormField
+										control={form.control}
+										name={`sets.${index}.reps`}
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Repeticiones:</FormLabel>
+												<FormControl>
+													<Input {...field} type='number' placeholder='10' />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name={`sets.${index}.weight`}
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Peso:</FormLabel>
+												<FormControl>
+													<Input {...field} type='number' placeholder='10' />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
 							</div>
-						</div>
-					))}
+						))}
 				</div>
 				<Button type='submit' className='w-full mt-10'>
 					Añadir ejercicio
