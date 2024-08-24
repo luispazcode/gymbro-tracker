@@ -24,7 +24,6 @@ import { MuscleGroup } from "@prisma/client";
 import { createExercise } from "@/actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "../ui/use-toast";
-import { useSession } from "next-auth/react";
 
 interface Props {
 	listMuscleGroups: MuscleGroup[];
