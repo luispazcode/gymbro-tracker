@@ -1,7 +1,10 @@
 export { Sidebar } from "./Sidebar";
 export { Header } from "./Header";
 export { ResumeCard } from "./ResumeCard";
+
+// Exercises
 export { CreateExerciseForm } from "./exercise/CreateExerciseForm";
+export { UpdateExerciseForm } from "./exercise/UpdateExerciseForm";
 
 // Workouts
 export { AddExerciseForm } from "./workout/AddExerciseForm";
