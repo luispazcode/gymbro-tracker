@@ -1,5 +1,5 @@
 import { getMuscleGroups } from "@/actions";
-import { CreateExerciseForm, ResumeCard } from "@/components";
+import { CreateExerciseForm } from "@/components";
 
 export default async function CreateExercisePage() {
 	const muscleGroups = await getMuscleGroups();
