@@ -1,6 +1,8 @@
 export { createExercise } from "./exercise/create-exercise";
 export { getExercises } from "./exercise/get-exercises";
 export { getExercisesSummary } from "./exercise/get-exercises-summary";
+export { getExerciseById } from "./exercise/get-exercise-by-id";
+export { updateExercise } from "./exercise/update-exercise";
 
 export { getMuscleGroups } from "./muscle/get-muscle-groups";
 
