@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Exercise, MuscleGroup } from "@prisma/client";
 import { useExercisesStore } from "@/store";
 import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 interface Props {
 	exerciseList: Exercise[];
@@ -30,6 +31,15 @@ export const ExerciseSection = ({ exerciseList, muscleList }: Props) => {
 									"No hay descripción para este ejercicio"
 								}
 							/>
+							<ResumeCard.Body>
+								<div className='flex items-center justify-end'>
+									<Button asChild>
+										<Link href={`/exercises/update/${exercise.id}`}>
+											Editar
+										</Link>
+									</Button>
+								</div>
+							</ResumeCard.Body>
 						</ResumeCard>
 					))
 				) : (
