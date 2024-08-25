@@ -1,5 +1,6 @@
 import { getWorkoutBySlug } from "@/actions";
 import { auth } from "@/auth.config";
+import { ReturnButton } from "@/components";
 import {
 	Table,
 	TableBody,
@@ -30,7 +31,7 @@ export default async function WorkoutDetailPage({ params }: Props) {
 		<section>
 			<h1>Entrenamiento: {workoutDetail.name}</h1>
 			<p className='text-gray-400 mt-2'>
-				Fecha: {workoutDetail.date.toLocaleString("es-PE", { timeZone: "UTC" })}
+				Fecha: {workoutDetail.date.toLocaleDateString()}
 			</p>
 			<div>
 				<div className='my-5'>
@@ -39,8 +40,8 @@ export default async function WorkoutDetailPage({ params }: Props) {
 							<TableRow>
 								<TableHead>Nombre del ejercicio</TableHead>
 								<TableHead className='text-center'>Serie</TableHead>
-								<TableHead className='text-center'>Repeticiones(N°)</TableHead>
-								<TableHead className='text-center'>Peso (KG)</TableHead>
+								<TableHead className='text-center'>Reps(N°)</TableHead>
+								<TableHead className='text-center'>Peso (Kg)</TableHead>
 							</TableRow>
 						</TableHeader>
 						<TableBody>
@@ -67,6 +68,9 @@ export default async function WorkoutDetailPage({ params }: Props) {
 						</TableBody>
 					</Table>
 				</div>
+			</div>
+			<div className='flex justify-center items-center'>
+				<ReturnButton>Regresar</ReturnButton>
 			</div>
 		</section>
 	);

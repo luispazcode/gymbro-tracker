@@ -1,6 +1,6 @@
 import { getExerciseById, getMuscleGroups } from "@/actions";
 import { auth } from "@/auth.config";
-import { UpdateExerciseForm } from "@/components";
+import { ReturnButton, UpdateExerciseForm } from "@/components";
 
 interface Props {
 	params: {
@@ -27,6 +27,9 @@ export default async function UpdateExercisePage({ params }: Props) {
 					listMuscleGroups={muscleGroups}
 					exerciseToEdit={exercise}
 				/>
+			</div>
+			<div className='flex justify-center items-center'>
+				<ReturnButton variant='link'>Regresar</ReturnButton>
 			</div>
 		</section>
 	);
