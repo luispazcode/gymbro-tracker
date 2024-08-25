@@ -22,6 +22,7 @@ import { Exercise, useWorkoutStore } from "@/store";
 import { createWorkout } from "@/actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "../ui/use-toast";
+import { useState } from "react";
 
 interface Props {
 	exerciseList: Exercise[];
@@ -45,6 +46,7 @@ export type CreateWorkoutFormData = z.infer<typeof AddWorkoutFormSchema>;
 export const SummaryWorkoutForm = ({ exerciseList }: Props) => {
 	const router = useRouter();
 	const { toast } = useToast();
+	const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
 	const form = useForm<CreateWorkoutFormData>({
 		resolver: zodResolver(AddWorkoutFormSchema),
 		defaultValues: {
@@ -102,7 +104,7 @@ export const SummaryWorkoutForm = ({ exerciseList }: Props) => {
 					render={({ field }) => (
 						<FormItem className='flex flex-col'>
 							<FormLabel>Fecha del entrenamiento:</FormLabel>
-							<Popover>
+							<Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
 								<PopoverTrigger asChild>
 									<FormControl>
 										<Button
@@ -125,7 +127,10 @@ export const SummaryWorkoutForm = ({ exerciseList }: Props) => {
 									<Calendar
 										mode='single'
 										selected={field.value}
-										onSelect={field.onChange}
+										onSelect={(e) => {
+											field.onChange(e);
+											setIsCalendarOpen(false);
+										}}
 										disabled={(date) =>
 											date > new Date() || date < new Date("1900-01-01")
 										}
