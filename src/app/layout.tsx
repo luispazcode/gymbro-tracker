@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { AuthProvider } from "@/providers";
 import { Toaster } from "@/components/ui/toaster";
+import MaintenancePage from "./maintenance/page";
 
 const fontSans = FontSans({
 	subsets: ["latin"],
@@ -21,6 +22,8 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "true";
+
 	return (
 		<html lang='en'>
 			<body
@@ -29,7 +32,11 @@ export default async function RootLayout({
 					fontSans.variable
 				)}
 			>
-				<AuthProvider>{children}</AuthProvider>
+				{isMaintenance ? (
+					<MaintenancePage />
+				) : (
+					<AuthProvider>{children}</AuthProvider>
+				)}
 				<Toaster />
 			</body>
 		</html>
