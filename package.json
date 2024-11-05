@@ -7,8 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"seed": "ts-node src/seed/index.ts",
-		"vercel-build": "prisma generate && prisma migrate deploy && next build"
+		"seed": "ts-node src/seed/index.ts"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.3.4",
